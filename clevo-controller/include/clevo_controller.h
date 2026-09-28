@@ -18,14 +18,16 @@ typedef struct {
 
 // Donanım Başlatma ve Kapatma
 int clevo_init(void);
-int clevo_get_fd(void);
 void clevo_close(void);
 
 // RGB Aydınlatma Kontrolü
-int clevo_set_rgb(uint8_t r, uint8_t g, uint8_t b, uint8_t brightness);
+int clevo_set_brightness(uint8_t br);
+int clevo_set_rgb(uint8_t r, uint8_t g, uint8_t b);
 
 // Fan Kontrolleri
 int clevo_get_fan_telemetry(uint8_t fan_id, ClevoFanTelemetry* telemetry); // 1: CPU, 2: GPU
+static inline int clevo_get_cpu_telemetry(ClevoFanTelemetry* telemetry) {return clevo_get_fan_telemetry(1, telemetry);}
+static inline int clevo_get_gpu_telemetry(ClevoFanTelemetry* telemetry) {return clevo_get_fan_telemetry(2, telemetry);}
 int clevo_set_fan_speed(uint8_t cpu_pct, uint8_t gpu_pct);                // 0-100%
 int clevo_set_fan_auto(void);
 
